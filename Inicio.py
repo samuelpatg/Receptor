@@ -148,6 +148,101 @@ st.markdown(
         border-radius: 14px;
     }
  
+    /* ---- Colores explícitos (funcionan aunque el tema de Streamlit sea oscuro) ---- */
+    .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
+        background: var(--paper) !important;
+        color: var(--ink) !important;
+    }
+    header[data-testid="stHeader"] {
+        background: transparent !important;
+        color: var(--ink) !important;
+    }
+    header[data-testid="stHeader"] * { color: var(--ink) !important; fill: var(--ink) !important; }
+ 
+    /* Texto general */
+    .stApp p, .stApp label, .stApp li, .stApp h2, .stApp h3,
+    [data-testid="stWidgetLabel"] p,
+    [data-testid="stWidgetLabel"] label {
+        color: var(--ink) !important;
+    }
+ 
+    /* Sidebar */
+    section[data-testid="stSidebar"], section[data-testid="stSidebar"] > div {
+        background: #FFFFFF !important;
+    }
+    section[data-testid="stSidebar"] h1, section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3, section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] label, section[data-testid="stSidebar"] span {
+        color: var(--ink) !important;
+    }
+    section[data-testid="stSidebar"] button svg { fill: var(--ink-soft) !important; color: var(--ink-soft) !important; }
+ 
+    /* Campos de entrada */
+    div[data-baseweb="input"], div[data-baseweb="base-input"], div[data-baseweb="input"] > div {
+        background: #F3F6F9 !important;
+        border-radius: 10px !important;
+    }
+    div[data-baseweb="input"] { border: 1px solid var(--line) !important; }
+    div[data-baseweb="input"]:focus-within { border-color: var(--signal) !important; }
+    div[data-baseweb="input"] input {
+        background: transparent !important;
+        color: var(--ink) !important;
+        -webkit-text-fill-color: var(--ink) !important;
+        font-weight: 600;
+    }
+    [data-testid="stNumberInput"] button { background: transparent !important; color: var(--ink) !important; }
+    [data-testid="stNumberInput"] button svg { fill: var(--ink) !important; }
+ 
+    /* Expander */
+    div[data-testid="stExpander"] details, div[data-testid="stExpander"] summary {
+        background: var(--card) !important;
+        border-radius: 14px;
+    }
+    div[data-testid="stExpander"] summary p,
+    div[data-testid="stExpander"] summary span,
+    div[data-testid="stExpander"] summary svg {
+        color: var(--ink) !important;
+        fill: var(--ink) !important;
+        font-weight: 700;
+    }
+    div[data-testid="stExpander"] code {
+        background: var(--signal-soft) !important;
+        color: #0A6B5F !important;
+    }
+ 
+    /* Botón: texto siempre blanco */
+    .stButton > button, .stButton > button p, .stButton > button span { color: #FFFFFF !important; }
+ 
+    /* Spinner */
+    [data-testid="stSpinner"] p, [data-testid="stSpinner"] { color: var(--ink) !important; }
+ 
+    /* Bloque JSON / código */
+    [data-testid="stJson"], pre, code { background: #F3F6F9 !important; }
+ 
+    /* Encabezado oscuro: texto claro (va al final para ganar a las reglas generales) */
+    .stApp .hero h1 { color: #FFFFFF !important; }
+    .stApp .hero p { color: #B9C7D5 !important; }
+    .stApp .hero .chip { color: #E6EEF5 !important; }
+ 
+    /* Estados y tarjetas */
+    .stApp .status { color: #0A6B5F !important; }
+    .stApp .status.error { color: #9B2C2C !important; }
+    .stApp .reading .label { color: var(--ink-soft) !important; }
+    .stApp .reading .value { color: var(--ink) !important; }
+    .stApp .section-title { color: var(--ink) !important; }
+ 
+    /* Estado vacío */
+    .empty {
+        background: var(--card);
+        border: 1px dashed #B7C4D1;
+        border-radius: 16px;
+        padding: 1.6rem;
+        text-align: center;
+        color: var(--ink-soft);
+        font-weight: 600;
+    }
+    .stApp .empty { color: var(--ink-soft) !important; }
+ 
     #MainMenu, footer { visibility: hidden; }
     </style>
     """,
@@ -361,5 +456,7 @@ if data:
             # Si no es diccionario, mostrar como texto
             st.code(data)
 else:
-    st.info("Aún no hay lecturas. Pulsa **Obtener datos del sensor** para empezar.", icon="📡")
- 
+    st.markdown(
+        '<div class="empty">📡 Aún no hay lecturas.<br>Pulsa «Obtener datos del sensor» para empezar.</div>',
+        unsafe_allow_html=True,
+    )
